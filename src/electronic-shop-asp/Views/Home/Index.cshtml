@@ -1,0 +1,134 @@
+﻿@model IEnumerable<electronic_shop_asp.Models.Product>
+
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<!-- Header start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Trang chủ</h1>
+    <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+        </li>
+        <li class="breadcrumb-item active text-white">Sản phẩm nổi bật</li>
+    </ol>
+</div>
+<!-- Header End -->
+<!-- Trang chủ Start -->
+<div class="container-fluid shop py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+
+            <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="product-categories mb-4">
+                    <h4>Danh mục sản phẩm</h4>
+                    @await Component.InvokeAsync("CategoryMenu")
+                </div>
+            </div>
+
+            <div class="col-lg-9 wow fadeInUp" data-wow-delay="0.1s">
+
+                <div class="row g-4 product">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-6 col-lg-4">
+
+                            <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
+
+                                <div class="product-item-inner border rounded">
+                                    <div class="product-item-inner-item"
+                                         style="height:250px; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+
+                                        <img src="~/img/@item.ImageUrl"
+                                             style="max-height:100%; max-width:100%; object-fit:contain;"
+                                             class="img-fluid"
+                                             alt="@item.Name">
+
+                                        <div class="product-new">Mới</div>
+
+                                        <div class="product-details">
+                                            <a asp-controller="Product"
+                                               asp-action="Detail"
+                                               asp-route-id="@item.Id">
+                                                <i class="fa fa-eye fa-1x"></i>
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="text-center rounded-bottom p-4">
+
+                                        <a class="d-block mb-2">
+                                            @(item.Category?.Name)
+                                        </a>
+
+                                        <a asp-controller="Product"
+                                           asp-action="Detail"
+                                           asp-route-id="@item.Id"
+                                           class="d-block h4">
+                                            @item.Name
+                                        </a>
+
+                                        <span class="text-primary fs-5">
+                                            @item.Price.ToString("N0")đ
+                                        </span>
+
+                                            <div class="mt-3">
+                                            <a asp-controller="Wishlist"
+                                               asp-action="Toggle"
+                                               asp-route-productId="@item.Id"
+                                               class="btn btn-outline-danger rounded-pill px-3">
+                                                <i class="fas fa-heart"></i> Yêu thích
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- NÚT HOVER -->
+                                <div class="product-item-add border border-top-0 rounded-bottom text-center p-4 pt-0">
+
+                                    <a asp-controller="Cart"
+                                       asp-action="AddToCart"
+                                       asp-route-productId="@item.Id"
+                                       class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4">
+                                        <i class="fas fa-shopping-cart me-2"></i> Thêm vào giỏ hàng
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+                </div>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <div class="pagination">
+                        @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+                        {
+                            if (i == (int)ViewBag.CurrentPage)
+                            {
+                                <a asp-controller="Home" asp-action="Index" asp-route-page="@i" class="active rounded">@i</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Home" asp-action="Index" asp-route-page="@i" class="rounded">@i</a>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <h5>Chào mừng bạn đến với website bán linh kiện điện tử</h5>
+                    <p class="text-muted">Trang chủ hiện đang hiển thị các sản phẩm nổi bật.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Trang chủ End -->

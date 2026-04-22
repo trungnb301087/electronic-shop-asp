@@ -1,0 +1,46 @@
+﻿@model electronic_shop_asp.Models.Order
+
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+}
+
+<h2 class="mb-3">Chi tiết đơn hàng #@Model.Id</h2>
+
+<div class="bg-white p-4 rounded shadow-sm mb-4">
+    <p><strong>Khách hàng:</strong> @Model.User?.FullName</p>
+    <p><strong>Email:</strong> @Model.User?.Email</p>
+    <p><strong>Ngày đặt:</strong> @Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
+    <p><strong>Địa chỉ:</strong> @Model.ShippingAddress</p>
+    <p><strong>SĐT:</strong> @Model.Phone</p>
+    <p><strong>Trạng thái:</strong> @Model.Status</p>
+</div>
+
+<table class="table table-bordered bg-white">
+    <thead class="table-dark">
+        <tr>
+            <th>Ảnh</th>
+            <th>Sản phẩm</th>
+            <th>Đơn giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderDetails)
+        {
+            <tr>
+                <td>
+                    <img src="~/img/@item.Product?.ImageUrl" style="width:70px;height:70px;object-fit:cover;" />
+                </td>
+                <td>@item.Product?.Name</td>
+                <td>@item.UnitPrice.ToString("N0") đ</td>
+                <td>@item.Quantity</td>
+                <td>@((item.UnitPrice * item.Quantity).ToString("N0")) đ</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-end mt-3">
+    <h4>Tổng cộng: <span class="text-primary">@Model.TotalAmount.ToString("N0") đ</span></h4>
+</div>

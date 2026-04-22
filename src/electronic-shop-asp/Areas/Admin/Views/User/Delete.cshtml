@@ -1,0 +1,17 @@
+﻿@model electronic_shop_asp.Models.User
+
+@{
+    ViewData["Title"] = "Xóa người dùng";
+}
+
+<h2 class="mb-3 text-danger">Xóa người dùng</h2>
+
+<div class="bg-white p-4 rounded shadow-sm">
+    <p>Bạn có chắc muốn xóa người dùng: <strong>@Model.FullName</strong>?</p>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

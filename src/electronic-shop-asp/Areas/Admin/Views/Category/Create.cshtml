@@ -1,0 +1,23 @@
+﻿@model electronic_shop_asp.Models.Category
+
+@{
+    ViewData["Title"] = "Thêm danh mục";
+}
+
+<h2 class="mb-3">Thêm danh mục</h2>
+
+<form asp-action="Create" method="post" class="bg-white p-4 rounded shadow-sm">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Tên danh mục</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Mô tả</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
